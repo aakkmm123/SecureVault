@@ -1,0 +1,110 @@
+C Programming Concepts Demonstrated in SecureVault
+==================================================
+
+1. Structures (struct)
+   - UserRecord: Stores username, password hash (with salt), and creation time
+   - PasswordHash: Contains the SHA-256 hash and per-user salt
+   - HistoryEntry: Records login timestamp, username, and event type
+   - SecurityLog: Records security event timestamp and description
+   - AccountStatus: Tracks login attempt counters and lockout state
+   - SHA256_CTX: Context structure for SHA-256 hashing computation
+
+2. Functions and Modular Programming
+   - Program divided into 9 modules: main, auth, users, password, file_manager,
+     history, security_logs, utils, config
+   - Each module has a corresponding header file (.h) with function declarations
+   - Source files (.c) implement the declared functions
+   - Clear separation of concerns: file I/O, authentication, password handling,
+     user management, history tracking, security logging
+
+3. Arrays
+   - Character arrays for usernames, passwords, hashes, timestamps, descriptions
+   - Fixed-size buffers throughout the program (MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH)
+   - SHA-256 state arrays and working variables
+   - Search and comparison operations on character arrays
+
+4. Pointers
+   - Function parameters passing strings and structures by pointer
+   - Return pointers from string operations
+   - Pointer arithmetic implicitly used in array indexing
+   - Dynamic memory concepts in file operation error handling
+
+5. String Handling
+   - Using strlen(), strcpy, strcat, strcmp, strncpy, strncat
+   - Custom line reading functions (read_line) that handle newline removal
+   - Password reading without echo (read_password)
+   - String tokenization using strtok for parsing stored records
+   - Formatting with snprintf and printf for output
+   - Careful buffer size management in all string operations
+
+6. File Handling
+   - Using fopen, fclose, fprintf, fscanf, fgets for file I/O
+   - Reading structured text records delimited by pipes (|)
+   - Writing records in consistent format for later parsing
+   - Appending new records to existing files
+   - Safe file replacement strategy: write to temp file, then rename
+   - Checking return values of all file operations
+   - Handling missing files gracefully (create on first write)
+   - Binary/text mode file operations
+   - File existence checking before operations
+
+7. Loops and Conditional Statements
+   - Nested for loops in SHA-256 transformation function
+   - While loops for input validation
+   - Switch statements for menu navigation
+   - If-else chains for password strength evaluation
+   - Do-while loops for menu retry logic
+   - Foreach-style iteration over user records
+
+8. Searching Algorithms
+   - Linear search for username lookup in user database
+   - Case-insensitive comparison using strcmp and tolower
+   - File content scanning with fscanf to find specific records
+   - Substring search using strstr for security log keyword search
+
+9. Input Validation
+   - Username length validation (MIN/MAX constraints)
+   - Username character validation (alphanumeric plus underscore)
+   - Password strength checking (length, case, digits, special chars)
+   - Menu choice validation with retry loop
+   - Password confirmation matching
+   - Account deletion confirmation prompt
+   - Buffer overflow prevention using size-limited I/O (fgets, read_line)
+   - Lowercase conversion for user menu choices
+
+10. Date and Time Functions
+    - Using time() to get current calendar time
+    - Using localtime() to convert to local time structure
+    - Using strftime to format timestamps as "YYYY-MM-DD HH:MM:SS"
+    - Using difftime to calculate elapsed time for lockout duration
+    - Time formatting in multiple contexts: creation time, login events, lockout
+
+11. Enumerations (enum)
+    - UserRole: ROLE_USER, ROLE_ADMIN for role-based access control
+    - StatusCode: SUCCESS, FAILURE, and various error codes for operation results
+    - File mode constants: READ, WRITE, APPEND modes
+
+12. Preprocessor Directives
+    - #define for constants (buffer sizes, limits, format strings)
+    - #ifndef/#define/#endif header guards
+    - #include for header file inclusion
+    - const for immutable variables
+
+13. Type Definitions (typedef)
+    - Typedef for UserRole enum to simplify usage
+    - Typedef for StatusCode enum
+    - Custom type names for complex structures
+
+14. Preprocessor #include and Header Management
+    - Modular header file design (.h files for each .c module)
+    - Dependency management between modules
+    - Standard library headers: stdio.h, stdlib.h, string.h, time.h,
+      ctype.h, stdbool.h, stdint.h
+    - Project-specific header: config.h with shared constants
+
+15. Error Handling and Return Codes
+    - StatusCode enum for meaningful return values
+    - Checking all critical function return values
+    - Graceful degradation when files are missing
+    - User-friendly error messages instead of crash reports
+    - Safe file closure with NULL checks

@@ -1,0 +1,214 @@
+SecureVault - Dev-C++ Project Compilation and Running Instructions
+================================================================
+
+Project Structure
+-----------------
+The SecureVault project consists of the following files in the directory:
+  SecureVault/
+
+  Source files (C source code):
+    main.c          - Main application entry point and terminal menu
+    auth.c          - Authentication, login, lockout management
+    users.c         - User registration, login, account management
+    password.c      - SHA-256 hashing and password strength checking
+    file_manager.c  - File I/O operations for data persistence
+    history.c       - Login history recording and viewing
+    security_logs.c - Security event logging
+    utils.c         - Utility functions (string ops, time formatting, etc.)
+
+    Header files (function declarations and type definitions):
+    config.h        - Project constants and type definitions
+    auth.h          - Authentication function declarations
+    users.h         - User management function declarations
+    password.h      - Password hashing and strength checking declarations
+    file_manager.h  - File operation function declarations
+    history.h       - Login history function declarations
+    security_logs.h - Security event logging function declarations
+    utils.h         - Utility function declarations
+
+    Data files (created automatically by the program):
+    users.txt       - Stores registered user records
+    login_history.txt - Records login events with timestamps
+    security_logs.txt - Records security events with timestamps
+
+================================================================
+COMPILATION INSTRUCTIONS USING DEV-C++
+================================================================
+
+Step 1: Open Dev-C++
+1. Launch Dev-C++ from your Windows Start menu.
+2. If the startup dialog asks for a project template,
+   select "PNG - Small Graphics Project" or close it and
+   choose a standard C project template.
+
+Step 2: Create a New Project
+1. From the menu, select File -> New -> Project.
+2. Name the project "SecureVault".
+3. Choose a save location, preferably in your Documents folder.
+4. Click OK to create the new project.
+
+Step 3: Add Source Files
+1. In the Project window (usually on the left), right-click on
+   "Source Files" or the project name.
+2. Select "Add File" -> "Add File...".
+3. Add each of the following .c files one by one:
+   - main.c
+   - auth.c
+   - users.c
+   - password.c
+   - file_manager.c
+   - history.c
+   - security_logs.c
+   - utils.c
+4. Click "Open" or "Add" for each file.
+
+Step 4: Add Header Files
+1. Right-click on "Header Files" in the Project window.
+2. Add each of the following .h files:
+   - config.h
+   - auth.h
+   - users.h
+   - password.h
+   - file_manager.h
+   - history.h
+   - security_logs.h
+   - utils.h
+3. Click "Open" or "Add" for each file.
+
+Step 5: Configure Compiler Options
+1. From the menu, select Options -> Compiler Options.
+2. In the "Compiler" tab, find the "Code generation" section.
+3. Set "C++ Compiler" to "gcc.exe" (important for C files).
+4. In the "Optimization" section, keep default settings.
+5. In the "Additional options" field, enter:
+      -std=c99 -Wall -Wextra
+   This enables C99 standard and shows all warnings.
+
+   Alternative: If -std=c99 causes issues, try -std=gnu99 or -std=c11.
+
+Step 6: Build the Project
+1. From the menu, select Build -> Compile (or press F11).
+2. The compiler will build the executable.
+3. If there are errors, the "Compiler Output" window will show them.
+   Fix any errors before proceeding.
+
+Step 7: Run the Program
+1. After successful compilation, run the program by:
+   - Selecting Run -> Run (or press F10), or
+   - Clicking the "Run" button, or
+   - typing "SecureVault.exe" in the Dev-C++ console.
+
+2. The program will start and display the main menu.
+
+================================================================
+COMMAND-LINE COMPILATION (Alternative)
+================================================================
+If you prefer to compile from the command line instead of Dev-C++:
+
+1. Open a Command Prompt (cmd.exe) or PowerShell.
+2. Navigate to the SecureVault directory:
+      cd \path\to\SecureVault
+
+3. Compile with GCC using C99 standard:
+      gcc -std=c99 -Wall -Wextra -o SecureVault.exe main.c auth.c users.c
+           password.c file_manager.c history.c security_logs.c utils.c
+
+4. Run the program:
+      SecureVault.exe
+
+   Or on Linux/macOS:
+      gcc -std=c99 -Wall -Wextra -o SecureVault main.c auth.c users.c
+           password.c file_manager.c history.c security_logs.c utils.c
+      ./SecureVault
+
+================================================================
+FIRST-TIME RUN SETUP
+================================================================
+When you run SecureVault for the first time:
+
+1. The program will create/verify data files in the running directory:
+   - users.txt    (initially empty or with existing data)
+   - login_history.txt  (initially empty)
+   - security_logs.txt  (initially empty)
+
+2. The main menu will appear with options appropriate for
+   unauthenticated users.
+
+3. To test administration features, use the built-in admin account:
+   - Username: admin
+   - Initial password: Admin123!
+   - After first login, immediately change the password.
+
+4. To register a new user, select "1. Register" from the main menu
+   and follow the prompts.
+
+================================================================
+TROUBLESHOOTING
+================================================================
+
+Issue: "gcc not recognized" or compilation errors
+--------------------------------------------------
+- Ensure you selected "gcc.exe" as the C++ Compiler in
+  Options -> Compiler Options.
+- Make sure all .c and .h files are added to the project.
+- Verify the additional options contain "-std=c99 -Wall -Wextra".
+- Update the options and try compiling again.
+
+Issue: "Cannot open file" or missing .h files
+---------------------------------------------
+- Ensure all 8 header files are added to the "Header Files" folder
+  in the Project window.
+- Check that #include directives in .c files match the .h filenames.
+
+Issue: Program runs but menu options don't work as expected
+-----------------------------------------------------------
+- This is normal for initial use. Follow the testing checklist
+  to verify each feature.
+- Ensure data files (users.txt, etc.) have proper read/write permissions.
+
+Issue: "Warning" messages during compilation
+---------------------------------------------
+- These are typically informational and do not prevent execution.
+- -Wall -Wextra enables extra warnings for common mistakes.
+- Review the Compiler Output window for details, but most warnings
+  are safe to ignore in this educational project.
+
+================================================================
+PROJECT LIMITATIONS (As Documented in README.txt)
+================================================================
+
+1. SHA-256 hash alone is NOT suitable for production password storage.
+   This implementation uses per-user salts, but for real-world use,
+   implement a proper Key Derivation Function (Argon2, bcrypt, or PBKDF2).
+
+2. Admin role is determined by username "admin" - not a secure method.
+   This is an educational demonstration. In production, use proper
+   authentication and role-based access control.
+
+3. Lockout state is lost on program restart (stored in memory only).
+   For production, store lockout state in the user data file.
+
+4. File-based storage does not support concurrent access well.
+   Multiple users accessing the same data files may cause corruption.
+
+5. The "admin" initial password should be changed immediately
+   after first login.
+
+================================================================
+TESTING YOUR INSTALLATION
+================================================================
+
+After compiling and running, verify these basic functions:
+
+1. [ ] Program starts and shows main menu
+2. [ ] Can register a new user (choose a unique username)
+3. [ ] Can login with the registered credentials
+4. [ ] Password strength checker works (test weak and strong passwords)
+5. [ ] Can change password after login
+6. [ ] Can search for a user account
+7. [ ] Login history records events
+8. [ ] Security logs capture events
+9. [ ] Admin features accessible with username "admin"
+10. [ ] Exit and restart - data persists
+
+If all 10 tests pass, your SecureVault installation is working correctly.

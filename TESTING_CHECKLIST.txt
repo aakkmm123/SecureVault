@@ -1,0 +1,156 @@
+SecureVault Testing Checklist
+=============================
+
+Test Category: User Registration
+---------------------------------
+[1] Register a new user with valid username and password
+    Expected: Registration succeeds, user appears in users.txt
+    Test: Enter username "testuser" and password "Test123!"
+
+[2] Register with duplicate username
+    Expected: Error message "Username already exists", no account created
+    Test: Try to register "testuser" again with different password
+
+[3] Register with username too short (< 4 characters)
+    Expected: Error message about minimum length, registration denied
+    Test: Enter username "usr" and valid password
+
+[4] Register with username too long (> 31 characters)
+    Expected: Error message about maximum length, registration denied
+    Test: Enter a 32-character username
+
+[5] Register with invalid characters in username
+    Expected: Error message about invalid characters, registration denied
+    Test: Enter username "user@name" or "user name" (space not allowed)
+
+[6] Register with weak password
+    Expected: Warning message about password strength, but registration succeeds
+    Test: Enter password "abc" (too short) - should warn but still register
+
+[7] Register with password confirmation mismatch
+    Expected: Error message "Passwords do not match", no account created
+    Test: Enter password "Test123!" and confirmation "test123!"
+
+
+Test Category: User Login
+--------------------------
+[8] Login with correct credentials
+    Expected: Login successful, user menu displayed
+    Test: Use credentials from test [1]
+
+[9] Login with incorrect password
+    Expected: Login failed message, failed attempt recorded
+    Test: Use correct username with wrong password
+
+[10] Login after 3 failed attempts (account lockout)
+    Expected: Message "Account locked. Try again after 15 minutes",
+             lockout status recorded
+    Test: Attempt 3 failed logins with correct username but wrong password
+
+[11] Lockout expires after duration
+    Expected: Account unlocked after 15 minutes, failed counter reset
+    (Note: In program, simulate by restarting or checking time difference)
+
+[12] Login with non-existent username
+    Expected: Login failed, no account created
+
+[13] Admin login with username "admin"
+    Expected: Admin menu accessible
+
+
+Test Category: Password Strength Checker
+-----------------------------------------
+[14] Check weak password (only lowercase, short)
+    Expected: "WEAK" rating with suggestions like "Add digits and special chars"
+
+[15] Check strong password (mixed case, digits, special, 16+ chars)
+    Expected: "STRONG" rating
+
+[16] Check password with uppercase only
+    Expected: "WEAK" rating suggesting lowercase, digits, special chars
+
+[17] Check password with lowercase only
+    Expected: "WEAK" rating suggesting uppercase, digits, special chars
+
+
+Test Category: User Management
+-------------------------------
+[18] Search for an existing user
+    Expected: Account information displayed (username and creation time only,
+              password hash NOT revealed)
+
+[19] Search for a non-existent user
+    Expected: "Account not found" message
+
+[20] Change password (verify current password first)
+    Expected: New password set successfully after verifying old password
+    Test: Login as user, change password from "Test123!" to "NewPass456!"
+
+[21] Change password with wrong current password
+    Expected: Error "Current password is incorrect", no change
+
+[22] Change new password that is too weak
+    Expected: Error about weak password strength, no change
+
+[23] Delete account with confirmation
+    Expected: Account removed, user returned to unauthenticated menu
+    Test: Delete the account created in test [1] - confirm with 'y'
+
+[24] Delete account with cancellation
+    Expected: "Account deletion cancelled" message, account preserved
+    Test: Delete account and respond 'n' when prompted
+
+
+Test Category: Login History
+-----------------------------
+[25] View login history after successful authentication
+    Expected: Table showing timestamp, username, and event type (LOGIN_SUCCESS/
+    LOGIN_FAILED) for the authenticated user
+
+[26] View login history for non-existent user
+    Expected: "No login history found" message
+
+
+Test Category: Security Event Logging
+--------------------------------------
+[27] View all security logs as administrator
+    Expected: Table showing timestamp and event descriptions (registration,
+    login attempts, password changes, account deletions)
+
+[28] Search security logs by keyword
+    Expected: Filtered results containing the keyword in descriptions
+
+
+Test Category: Data Persistence
+--------------------------------
+[29] Restart program and confirm data persists
+    Expected: Previously registered users still available in users.txt
+    Test: Register, exit, restart, verify user still exists
+
+[30] Verify separate data files used
+    Expected: users.txt, login_history.txt, security_logs.txt all exist
+    and contain appropriate data
+
+
+Test Category: Admin Functionality
+-----------------------------------
+[31] Admin views account summaries
+    Expected: List of all usernames and account creation dates
+
+[32] Admin searches for a specific user
+    Expected: User found or "User not found" message
+
+[33] Admin views security logs
+    Expected: Complete list of security events with timestamps
+
+
+Test Category: Edge Cases
+--------------------------
+[34] Empty input handling
+    Expected: Appropriate error message, no crash
+
+[35] Invalid menu choice
+    Expected: "Invalid choice" message, re-prompt
+
+[36] Program exit and restart
+    Expected: Clean exit, data files intact for next session
