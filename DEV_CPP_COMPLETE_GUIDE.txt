@@ -1,0 +1,506 @@
+SecureVault – Dev-C++ Complete Setup & Running Guide
+===================================================
+
+For Beginners using Dev-C++ on Windows
+
+This guide explains exactly how to open, compile, and run the SecureVault project
+in Dev-C++. Follow each step carefully.
+
+================================================================
+STEP 1 – Locate the Project
+================================================================
+
+1.1 Where is the project folder?
+--------------------------------
+The SecureVault project is located in:
+   D:\PF LAB C project\SecureVault\
+
+1.2 What files are inside the folder?
+--------------------------------------
+You will see the following files (this guide explains each one):
+
+Source code files (C language):
+  main.c          - Main application entry point and terminal menu
+  auth.c          - Authentication, login, lockout management
+  users.c         - User registration, login, account management
+  password.c      - SHA-256 hashing and password strength checking
+  file_manager.c  - File I/O operations for data persistence
+  history.c       - Login history recording and viewing
+  security_logs.c - Security event logging
+  utils.c         - Utility functions (input handling, time formatting)
+
+Header files (C declarations):
+  config.h        - Project constants, enums, and definitions
+  auth.h          - Authentication function declarations
+  users.h         - User management function declarations
+  password.h      - Password hashing and strength checking declarations
+  file_manager.h  - File operation function declarations
+  history.h       - Login history function declarations
+  security_logs.h - Security event logging function declarations
+  utils.h         - Utility function declarations
+
+Data files (created automatically by the program):
+  users.txt       - Stores registered user records (do not edit manually)
+  login_history.txt - Records login events with timestamps (do not edit manually)
+  security_logs.txt - Records security events with timestamps (do not edit manually)
+
+Documentation files (included for your reference):
+  README.txt      - Improved project documentation
+  DEV_CPP_COMPLETE_GUIDE.txt  - This guide (you are reading it)
+  DEV_CPP_PROJECT_CHECKLIST.txt - Submission checklist
+  CONCEPTS.txt    - C programming concepts used in the project
+  TESTING_CHECKLIST.txt - Testing checklist
+
+IMPORTANT: Do not delete, rename, or edit the .txt data files manually.
+The program creates and manages these files automatically.
+
+================================================================
+STEP 2 – Open Dev-C++
+================================================================
+
+2.1 Launching Dev-C++
+---------------------'
+1. Click the "Start" button (Windows logo) in the bottom-left corner.
+2. Scroll through the program list and find "Dev-C++".
+3. Click on Dev-C++ to open it.
+   - If prompted with a startup dialog asking for a project template,
+     select "PNG - Small Graphics Project" OR click "Cancel"/close the dialog
+     and choose "File -> New -> Project" from the menu.
+
+2.2 Opening an Existing Project
+-------------------------------
+- Dev-C++ does not automatically include a .dev project file with this project.
+- You will create a new C project and add the source files manually.
+- There is no .dev file to open; follow the steps in Step 3 below.
+
+================================================================
+STEP 3 – Add Source Files
+================================================================
+
+3.1 Creating a New C Project
+----------------------------
+1. With Dev-C++ open, click "File" in the top menu bar.
+2. Select "New" -> "Project..." (or press Ctrl+N).
+3. In the "Create New Project" dialog:
+   - Select "Console Application" (not GUI or PNG).
+   - Set the language to "C" (important!).
+   - Name the project: "SecureVault"
+   - Choose a save location (recommended: your Documents folder, or keep it
+     in D:\PF LAB C project\SecureVault).
+4. Click "OK" to create the project.
+
+3.2 Adding All .c Source Files
+------------------------------
+The program requires ALL .c files to compile. You must add each one:
+
+1. In the Project window (usually on the left side), look for "Source Files".
+   If you don't see it, look for the project name "SecureVault" at the top
+   of the project window.
+
+2. Right-click on "Source Files" (or the project name).
+
+3. Select "Add File" -> "Add File..." (or "Add to Project").
+
+4. Navigate to the SecureVault folder if needed, or simply select the files
+   from their current location. The files are:
+   - main.c
+   - auth.c
+   - users.c
+   - password.c
+   - file_manager.c
+   - history.c
+   - security_logs.c
+   - utils.c
+
+5. Click "Open" or "Add" for each file.
+
+   REPEAT this process for ALL EIGHT .c files. Do NOT add only main.c -
+   the program will not compile. All eight source files are required.
+
+3.3 Adding All .h Header Files
+------------------------------
+1. In the Project window, right-click on "Header Files" (or click the "+"
+   button next to "Header Files" to expand it).
+
+2. Select "Add File" -> "Add File...".
+
+3. Add these eight header files:
+   - config.h
+   - auth.h
+   - users.h
+   - password.h
+   - file_manager.h
+   - history.h
+   - security_logs.h
+   - utils.h
+
+   NOTE: The .h files contain function declarations and type definitions that
+   the .c files need. Adding only the .c files without the .h files will result
+   in compilation errors.
+
+3.4 Avoiding a Common Mistake
+-----------------------------
+- DO NOT try to add the .txt data files (users.txt, login_history.txt,
+  security_logs.txt) as source code.
+- Dev-C++ may warn you that .txt files are not valid C source files - ignore
+  this and do not add them as .c files. The program creates these files
+  automatically when it runs.
+- Only add the .c and .h files listed above.
+
+================================================================
+STEP 4 – Configure the Compiler
+================================================================
+
+4.1 Ensuring C99 Compilation
+----------------------------
+The program is written in C99 and will not work correctly if compiled as C++.
+
+1. From the Dev-C++ menu, select "Options" -> "Compiler Options...".
+
+2. In the Compiler Options window, click the "Compiler" tab (if not already selected).
+
+3. Look for the "Code generation" section.
+
+4. Find the "C++ Compiler" dropdown or setting.
+
+5. Set it to "gcc.exe" (this is critical - if you see "g++.exe", change it).
+
+   Why? If the compiler is set to g++, it may treat some C constructs differently
+   and cause errors. Using gcc.exe ensures C99 standard compliance.
+
+6. Look for the "Additional options" text box.
+
+7. Enter the following exactly:
+      -std=c99 -Wall -Wextra
+
+   - -std=c99: Tells the compiler to use the C99 standard.
+   - -Wall: Enables all warning messages (helps find problems).
+   - -Wextra: Enables extra warning messages.
+
+8. Click "Apply" or "OK" to save the compiler settings.
+
+4.2 Alternative Compiler Settings
+--------------------------------
+If -std=c99 causes errors when you try to compile, try these alternatives:
+
+- Try -std=gnu99 instead of -std=c99 (this is often more compatible).
+- Or try -std=c11 if your compiler supports it.
+
+You can change the setting in Step 7 above and recompile if needed.
+
+================================================================
+STEP 5 – Compile the Project
+================================================================
+
+5.1 Building the Program
+------------------------
+1. After adding all files and configuring the compiler, you are ready to compile.
+
+2. From the menu, select "Build" -> "Compile" (or simply press the F11 key).
+
+   - F11 is the default shortcut for "Compile" in Dev-C++.
+
+3. The compiler will start building your program.
+
+   - A window titled "Compiler Output" may appear at the bottom or top of the
+     screen showing the compilation progress.
+
+4. Watch for the results:
+
+   SUCCESS: If compilation succeeds, you will see no errors, or only informational
+   messages. The program is ready to run.
+
+   ERRORS: If there are compilation errors, the "Compiler Output" window will
+   display them. Each error will show the file name, line number, and a message.
+
+5.2 Common Compilation Problems and Fixes
+------------------------------------------
+
+Problem A: "Undefined reference" errors
+--------------------------------------
+- Cause: A .c file is missing, or a function is not properly declared.
+- Fix: Ensure ALL EIGHT .c files are added to the project (main.c, auth.c,
+  users.c, password.c, file_manager.c, history.c, security_logs.c, utils.c).
+  Also ensure the matching .h files are added.
+
+Problem B: "Missing header file" errors
+----------------------------------------
+- Cause: A .c file #includes a .h file that Dev-C++ cannot find.
+- Fix: Ensure all eight .h files are added to the "Header Files" section of
+  the project (config.h, auth.h, users.h, password.h, file_manager.h, history.h,
+  security_logs.h, utils.h).
+
+Problem C: "Multiple definition" errors
+----------------------------------------
+- Cause: The same function or variable is defined in more than one .c file,
+  or global variables are defined in header files (which should only have
+  declarations, not definitions).
+- Fix: Ensure you are not defining variables in .h files. .h files should
+  only contain function declarations and type definitions (extern declarations).
+  All actual variable definitions should be in the .c files only.
+
+Problem D: "Compiler treating C files as C++"
+----------------------------------------------
+- Cause: The "C++ Compiler" setting is set to g++ instead of gcc (see Step 4.1).
+- Fix: Go to Options -> Compiler Options, and change "C++ Compiler" to "gcc.exe".
+
+Problem E: "Program closes immediately" or "Window flashes and disappears"
+---------------------------------------------------------------------------
+- Cause: The program compiled but terminates before you can see the output.
+- Fix: This sometimes happens if the console window closes right after running.
+  In Dev-C++, you can run the program and the window will stay open by selecting
+  "Run -> Run" (or press F10) instead of just compiling.
+
+Problem F: "No such file or directory" errors
+----------------------------------------------
+- Cause: The program cannot find users.txt, login_history.txt, or security_logs.txt.
+- Fix: This is normal on first compile. The data files are created automatically
+  when you run the program for the first time (see Step 7). Ensure the program
+  is run from the correct directory (see Step 7.3).
+
+================================================================
+STEP 6 – Run SecureVault
+================================================================
+
+6.1 Running the Program
+------------------------
+1. After successful compilation (no errors), you are ready to run.
+
+2. From the menu, select "Run" -> "Run" (or press the F10 key).
+
+   - F10 is the default shortcut for "Run" in Dev-C++.
+
+   Alternative: You can also click the "Run" button (usually a green triangle or
+   "play" icon in the toolbar).
+
+3. The program will start, and a terminal window will appear displaying:
+
+   === SecureVault Terminal Security Management ===
+   1. Register
+   2. Login
+   3. Password Strength Checker
+   4. Administrator Features
+   5. Exit
+
+   Enter your choice:
+
+   This is the main menu. You are currently unauthenticated.
+
+6.2 First-Time Interaction
+-------------------------
+When you first run the program:
+
+1. The main menu appears as shown above.
+
+2. To register a new user:
+   - Enter "1" and press Enter.
+   - Follow the prompts to enter a username and password.
+   - The program will validate the input and create a record in users.txt.
+
+3. To log in as administrator (to test admin features):
+   - Enter "2" and press Enter.
+   - Use username: "admin"
+   - Use initial password: "Admin123!"
+   - After login, you will have administrator access.
+
+4. To test regular user functions:
+   - Register a new user first (username and password of your choice).
+   - Log in with the registered credentials.
+   - You will see a different menu with user-specific options.
+
+6.3 Navigating the Menus
+------------------------
+- Enter a number (1-5 for main menu, or 1-6 for administrator menu) and press
+  Enter to select that option.
+- Follow the on-screen prompts for each function.
+- Enter text when prompted (usernames, passwords).
+- Press Enter after typing text.
+- If you make a mistake, the program will show error messages and let you try again.
+
+================================================================
+STEP 7 – Verify File Storage
+================================================================
+
+7.1 Where Are the Data Files?
+------------------------------
+The program creates and uses three text files in the "working directory".
+
+7.2 What Is the Working Directory?
+-----------------------------------
+The "working directory" is the folder where the SecureVault executable is located.
+
+When using Dev-C++:
+- The working directory is typically: D:\PF LAB C project\SecureVault\
+- This is the folder where you saved your project and where all .c and .h files are.
+- The data files will be created in this same folder.
+
+7.3 Verifying Data Files Exist
+-------------------------------
+After running the program once:
+
+1. Open the folder: D:\PF LAB C project\SecureVault\
+
+2. You should now see these new files (in addition to your .c and .h files):
+   - users.txt    (initially empty, or with your registered user)
+   - login_history.txt  (initially empty)
+   - security_logs.txt  (initially empty)
+
+   If you do NOT see these files:
+   - Ensure you are looking in the correct folder (D:\PF LAB C project\SecureVault\).
+   - The program may have created the files in a different location.
+   - Try running the program again, ensuring you compile and run from Dev-C++
+     without changing directories.
+
+7.4 Testing Data Persistence
+-----------------------------
+To verify that data survives across program restarts:
+
+1. Register a new user (e.g., username "testuser", password "Test123!").
+
+2. Exit the program: Select "5. Exit" from the main menu, or close the terminal
+   window.
+
+3. Re-open Dev-C++, run the program again (F10).
+
+4. Log in using the credentials you just created (username "testuser", password
+   "Test123!").
+
+5. If you can log in successfully, data persistence is working correctly.
+
+   - The program read your previously registered user from users.txt.
+
+6. If you cannot log in:
+   - Ensure you are running the program from the same folder where you first ran it
+     (D:\PF LAB C project\SecureVault\)).
+   - Ensure no antivirus or security software is blocking file creation.
+   - Check that users.txt was not accidentally deleted or corrupted.
+
+7.5 Manual File Inspection (Optional)
+--------------------------------------
+If you want to see what's inside the data files:
+
+1. Close the SecureVault program.
+
+2. Open users.txt with any text editor (Notepad, WordPad, etc.).
+
+3. You should see records in this format:
+   testuser|<SHA256 hash>|<salt>|<creation timestamp>
+
+   - Do NOT attempt to read or modify the password hash; it is a 64-character
+     hexadecimal string.
+
+4. Open login_history.txt to see login event records.
+
+5. Open security_logs.txt to see security event records.
+
+   - These files are managed by the program; do not edit them manually.
+
+================================================================
+STEP 8 – Common Errors and Solutions
+================================================================
+
+Error 1: "Undefined reference to 'function_name'"
+------------------------------------------------
+- Meaning: The linker cannot find the implementation of a function.
+- Solution: 
+  1. Check that ALL .c files are added to the project (8 files minimum).
+  2. Check that ALL .h files are added to the project.
+  3. Ensure you are not defining functions in .h files - .h files should only
+     have declarations (function prototypes).
+  4. Rebuild the project: Build -> Rebuild All (Ctrl+F11).
+
+Error 2: "Cannot open source file" or "No such file or directory"
+------------------------------------------------------------------
+- Meaning: Dev-C++ cannot find a .c or .h file you added.
+- Solution:
+  1. Check the file path - ensure the files are in the project folder.
+  2. Use "Project -> Remove" on the problematic file, then "Add File" again
+     to re-select it from the correct location.
+  3. Ensure you are not trying to add .txt data files as source code.
+
+Error 3: "Permission denied" or "Access denied" when running
+-------------------------------------------------------------
+- Meaning: The program cannot write to the data files.
+- Solution:
+  1. Close any other programs that might be using the data files (Notepad, etc.).
+  2. Ensure you have permission to write to D:\PF LAB C project\SecureVault\
+  3. Try running Dev-C++ as Administrator (right-click Dev-C++ icon ->
+     "Run as administrator").
+
+Error 3: "The system cannot find the path specified"
+------------------------------------------------------
+- Meaning: The program cannot locate the data files at runtime.
+- Solution:
+  1. The data files (users.txt, etc.) must be in the same folder as the
+     SecureVault.exe executable.
+  2. When running from Dev-C++, keep all files in D:\PF LAB C project\SecureVault\
+  3. Do not move the .exe file to a different folder without the data files.
+
+Error 4: "Warning: ignoring return type of 'main'"
+---------------------------------------------------
+- Meaning: The main function should return int.
+- Solution: Ensure main.c has `int main(void)` at the top, not `void main()`.
+  The project uses `int main(void)` which is the correct C99 signature.
+
+Error 5: "Project has not been built" or "Nothing happens" when pressing F10
+--------------------------------------------------------------------------------
+- Meaning: The program hasn't been compiled successfully.
+- Solution:
+  1. Press F11 (Compile) first to build the project.
+  2. Fix any compilation errors that appear in the "Compiler Output" window.
+  3. After successful compilation, press F10 (Run).
+
+Error 6: "log in as administrator" does not work with username "admin"
+-----------------------------------------------------------------------
+- Meaning: Administrator features require proper login.
+- Solution: Use username "admin" with initial password "Admin123!" on first login.
+  After first login, change the password immediately. If you changed the password
+  and can no longer log in, you may need to delete users.txt and restart the program
+  (it will recreate with the default admin account).
+
+Error 7: "Registration allows weak passwords" without stopping
+-----------------------------------------------------------------
+- Meaning: The program warns about weak passwords but allows registration for
+  educational purposes.
+- Solution: This is by design. In a production system, weak passwords would be
+  rejected. This project educates about password strength checking.
+
+================================================================
+PROJECT VERIFICATION CHECKLIST
+================================================================
+
+After following this guide, verify these items:
+
+[ ] Dev-C++ opens without errors
+[ ] All 8 .c files are in the project (Project -> Source Files)
+[ ] All 8 .h files are in the project (Project -> Header Files)
+[ ] Compiler settings: -std=c99 -Wall -Wextra (Options -> Compiler Options)
+[ ] "C++ Compiler" is set to "gcc.exe"
+[ ] Press F11 - compilation succeeds (no errors)
+[ ] Press F10 - program runs
+[ ] Main menu appears with options 1-5
+[ ] Can register a new user (choose a unique username)
+[ ] Can log in with registered credentials
+[ ] Password strength checker works
+[ ] Data files created: users.txt, login_history.txt, security_logs.txt
+[ ] Can view own login history after authentication
+[ ] Admin menu accessible with username "admin" and password "Admin123!"
+[ ] Exit and restart - data persists (previously registered users still available)
+
+If ALL items above are checked, your SecureVault project is successfully set up
+and running in Dev-C++!
+
+================================================================
+NEED MORE HELP?
+================================================================
+
+- Ask your instructor or teacher for assistance with Dev-C++ setup.
+- Ensure your Windows permissions allow writing to the project folder.
+- Antivirus software may occasionally block file creation - temporarily disable
+  it if you cannot create users.txt.
+- The project is designed for educational use and runs in a terminal window.
+- No internet connection is required to compile or run the program.
+
+================================================================
+END OF GUIDE
+================================================================

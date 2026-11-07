@@ -1,0 +1,169 @@
+SecureVault – Dev-C++ Project Submission Checklist
+==================================================
+
+How to use this checklist:
+- Complete each item before submitting your university project.
+- Check off () each box as you verify it.
+- If any item is "No", follow the relevant guide (DEV_CPP_COMPLETE_GUIDE.txt)
+  to fix it before submitting.
+
+================================================================
+PROJECT FILES CHECKLIST
+================================================================
+
+[ ] 1. All source .c files are included in the Dev-C++ project:
+     [ ] main.c
+     [ ] auth.c
+     [ ] users.c
+     [ ] password.c
+     [ ] file_manager.c
+     [ ] history.c
+     [ ] security_logs.c
+     [ ] utils.c
+
+[ ] 2. All header .h files are included in the Dev-C++ project:
+     [ ] config.h
+     [ ] auth.h
+     [ ] users.h
+     [ ] password.h
+     [ ] file_manager.h
+     [ ] history.h
+     [ ] security_logs.h
+     [ ] utils.h
+
+[ ] 3. All data .txt files exist in the project folder:
+     [ ] users.txt (should exist; created by program)
+     [ ] login_history.txt (should exist; created by program)
+     [ ] security_logs.txt (should exist; created by program)
+
+[ ] 4. Documentation files are present:
+     [ ] README.txt (improved project documentation)
+     [ ] DEV_CPP_COMPLETE_GUIDE.txt (this checklist's companion guide)
+     [ ] DEV_CPP_PROJECT_CHECKLIST.txt (this file)
+     [ ] CONCEPTS.txt (C programming concepts)
+     [ ] TESTING_CHECKLIST.txt (testing checklist)
+
+================================================================
+COMPILER SETTINGS CHECKLIST
+================================================================
+
+[ ] 5. Compiler is configured for C99 (not C++):
+     [ ] Options -> Compiler Options -> "Additional options" contains:
+           -std=c99 -Wall -Wextra
+     [ ] "C++ Compiler" is set to "gcc.exe" (not g++)
+
+[ ] 6. Warning options are enabled:
+     [ ] -Wall is set (shows all warnings)
+     [ ] -Wextra is set (shows extra warnings)
+
+[ ] 5. Project compiles without errors:
+     [ ] Press F11 (Build -> Compile) succeeds
+     [ ] "Compiler Output" window shows no errors
+     [ ] Only informational messages may appear (these are OK)
+
+================================================================
+FUNCTIONALITY CHECKLIST
+================================================================
+
+[ ] 6. Registration works:
+     [ ] Can register a new user with a unique username
+     [ ] Registration rejects usernames that are too short (< 4 chars)
+     [ ] Registration rejects usernames that are too long (> 31 chars)
+     [ ] Registration rejects usernames with invalid characters
+     [ ] Registration warns about weak passwords but allows it
+     [ ] Registration rejects duplicate usernames
+
+[ ] 7. Login works:
+     [ ] Can log in with correct username and password
+     [ ] Login rejects incorrect passwords
+     [ ] Failed login attempts are counted
+     [ ] Account locks out after 3 failed attempts
+     [ ] Lockout message displays correctly
+
+[ ] 8. Login history works:
+     [ ] Can log in as an authenticated user
+     [ ] Can view login history (own history)
+     [ ] History shows timestamp, username, and event type
+     [ ] History records both successful and failed logins
+
+[ ] 9. Security logs work:
+     [ ] Can view security logs as administrator
+     [ ] Logs show timestamps and event descriptions
+     [ ] Events include registration, login, password changes, deletions
+
+[ ] 10. Password change works:
+      [ ] Can change password after verifying current password
+      [ ] Changing password with wrong current password fails
+      [ ] New password strength is checked
+
+[ ] 11. Account deletion works:
+      [ ] Can delete an account with confirmation
+      [ ] Account is removed from users.txt
+      [ ] Lockout state is reset for deleted account
+
+================================================================
+DATA PERSISTENCE CHECKLIST
+================================================================
+
+[ ] 12. Data remains after restarting the program:
+      [ ] Register a new user
+      [ ] Exit the program (close the terminal window)
+      [ ] Re-open Dev-C++ and run the program again
+      [ ] Log in with the same credentials
+      [ ] Login succeeds - data persisted correctly
+
+[ ] 13. Data files are in the correct folder:
+      [ ] users.txt, login_history.txt, security_logs.txt
+      are in: D:\PF LAB C project\SecureVault\
+      [ ] No data files are missing
+
+================================================================
+FINAL SUBMISSION CHECKLIST
+================================================================
+
+[ ] 14. All required files are present in the project directory:
+      [ ] main.c, auth.c, users.c, password.c, file_manager.c,
+          history.c, security_logs.c, utils.c  (8 .c files)
+      [ ] config.h, auth.h, users.h, password.h, file_manager.h,
+          history.h, security_logs.h, utils.h  (8 .h files)
+      [ ] users.txt, login_history.txt, security_logs.txt  (3 .txt data files)
+      [ ] README.txt  (improved documentation)
+      [ ] DEV_CPP_COMPLETE_GUIDE.txt  (setup guide)
+      [ ] DEV_CPP_PROJECT_CHECKLIST.txt  (this checklist)
+      [ ] CONCEPTS.txt  (programming concepts)
+      [ ] TESTING_CHECKLIST.txt  (test results)
+
+[ ] 15. Program compiles and runs in Dev-C++:
+      [ ] F11 compiles without fatal errors
+      [ ] F10 runs the program successfully
+      [ ] Terminal menu appears and is interactive
+
+[ ] 16. All core features demonstrated:
+      [ ] User registration with validation
+      ] User login with hash comparison
+      [ ] Password strength checking
+      [ ] Account lockout after 3 failed attempts
+      [ ] Login history recording and viewing
+      [ ] Security event logging
+      [ ] Administrator functionality (username "admin")
+
+[ ] 17. Documentation is complete:
+      [ ] README.txt explains project features, objectives, and limitations
+      [ ] DEV_CPP_COMPLETE_GUIDE.txt guides a beginner through setup
+      [ ] DEV_CPP_PROJECT_CHECKLIST.txt verifies project completeness
+      [ ] CONCEPTS.txt lists C programming concepts used
+      [ ] TESTING_CHECKLIST.txt documents test results
+
+================================================================
+SIGN-OFF
+================================================================
+
+Student Name: ________________________________________
+
+Date: _______________________________________________
+
+Instructor/Teacher Signature: _________________________
+
+================================================================
+ checklist completed successfully - Project ready for submission!
+================================================================
